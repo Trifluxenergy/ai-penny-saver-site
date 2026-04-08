@@ -403,9 +403,8 @@
         <div class="mini-title">AI Receptionist + Growth System</div>
         <h1>Stop Losing Leads. See What AI Could Add to Your Revenue in 60 Seconds.</h1>
         <p class="sub">
-          Get a free AI Business Audit built for med spas, contractors, real estate teams,
-          churches, and service businesses. We’ll estimate missed revenue, identify your
-          biggest leak, and show where automation can recover it.
+          Get a free AI Business Audit that shows how many leads you may be missing,
+          how much revenue you could be leaving on the table, and what to fix first.
         </p>
 
         <div class="cta-row">
@@ -488,39 +487,23 @@
       </div>
 
       <form id="auditForm">
-        <div class="step active" data-step="1">
-          <div class="form-grid">
-            <div class="field">
-              <label for="name">Full Name</label>
-              <input id="name" name="name" type="text" required />
-            </div>
-            <div class="field">
-              <label for="email">Business Email</label>
-              <input id="email" name="email" type="email" required />
-            </div>
-            <div class="field">
-              <label for="businessName">Business Name</label>
-              <input id="businessName" name="businessName" type="text" required />
-            </div>
-            <div class="field">
-              <label for="businessType">Industry</label>
-              <select id="businessType" name="businessType" required>
-                <option value="">Choose one</option>
-                <option value="med-spa">Med Spa</option>
-                <option value="contractor">Contractor</option>
-                <option value="real-estate">Real Estate</option>
-                <option value="church">Church</option>
-                <option value="agency">Agency</option>
-                <option value="other">Other Service Business</option>
-              </select>
-            </div>
-          </div>
-          <div class="step-actions">
-            <span class="small">We capture this first so qualified leads are never lost.</span>
-            <button type="button" class="btn btn-primary" data-next>Continue</button>
-          </div>
-          <div class="error" id="errorStep1"></div>
-        </div>
+<div class="step active" data-step="1">
+  <div class="form-grid">
+    <div class="field">
+      <label for="name">Full Name</label>
+      <input id="name" name="name" type="text" placeholder="Optional" />
+    </div>
+    <div class="field">
+      <label for="email">Business Email</label>
+      <input id="email" name="email" type="email" required />
+    </div>
+  </div>
+  <div class="step-actions">
+    <span class="small">Get your free AI audit in seconds — we’ll send your results to your inbox.</span>
+    <button type="button" class="btn btn-primary" data-next>Get My Free Audit</button>
+  </div>
+  <div class="error" id="errorStep1"></div>
+</div>
 
         <div class="step" data-step="2">
           <div class="form-grid">
@@ -548,30 +531,46 @@
           <div class="error" id="errorStep2"></div>
         </div>
 
-        <div class="step" data-step="3">
-          <div class="form-grid">
-            <div class="field full">
-              <label for="biggestPain">Biggest Revenue Leak</label>
-              <select id="biggestPain" name="biggestPain" required>
-                <option value="">Choose one</option>
-                <option value="missed-calls">Missed calls / no answer</option>
-                <option value="slow-follow-up">Slow response time</option>
-                <option value="no-show">Leads not booking appointments</option>
-                <option value="lead-organization">No follow-up system</option>
-                <option value="outbound">Leads slipping through the cracks</option>
-              </select>
-            </div>
-            <div class="field full">
-              <label for="notes">Anything else you want the audit to consider?</label>
-              <textarea id="notes" name="notes" placeholder="Optional details..."></textarea>
-            </div>
-          </div>
-          <div class="step-actions">
-            <button type="button" class="btn btn-secondary" data-prev>Back</button>
-            <button type="submit" class="btn btn-primary">Show My Audit</button>
-          </div>
-          <div class="error" id="errorStep3"></div>
-        </div>
+<div class="step" data-step="3">
+  <div class="form-grid">
+    <div class="field">
+      <label for="businessName">Business Name</label>
+      <input id="businessName" name="businessName" type="text" placeholder="Optional" />
+    </div>
+    <div class="field">
+      <label for="businessType">Industry</label>
+      <select id="businessType" name="businessType">
+        <option value="">Choose one</option>
+        <option value="med-spa">Med Spa</option>
+        <option value="contractor">Contractor</option>
+        <option value="real-estate">Real Estate</option>
+        <option value="church">Church</option>
+        <option value="agency">Agency</option>
+        <option value="other">Other Service Business</option>
+      </select>
+    </div>
+    <div class="field full">
+      <label for="biggestPain">Biggest Revenue Leak</label>
+      <select id="biggestPain" name="biggestPain" required>
+        <option value="">Choose one</option>
+        <option value="missed-calls">Missed calls / no answer</option>
+        <option value="slow-follow-up">Slow response time</option>
+        <option value="no-show">Leads not booking appointments</option>
+        <option value="lead-organization">No follow-up system</option>
+        <option value="outbound">Leads slipping through the cracks</option>
+      </select>
+    </div>
+    <div class="field full">
+      <label for="notes">Anything else you want the audit to consider?</label>
+      <textarea id="notes" name="notes" placeholder="Optional details..."></textarea>
+    </div>
+  </div>
+  <div class="step-actions">
+    <button type="button" class="btn btn-secondary" data-prev>Back</button>
+    <button type="submit" class="btn btn-primary">Show My Audit</button>
+  </div>
+  <div class="error" id="errorStep3"></div>
+</div>
 
         <div class="step" data-step="4">
           <div id="resultContent"></div>
@@ -677,16 +676,13 @@
       const errorEl = document.getElementById(`errorStep${stepNum}`);
       if (errorEl) errorEl.textContent = "";
 
-      if (stepNum === 1) {
-        const required = ["name", "email", "businessName", "businessType"];
-        for (const id of required) {
-          const value = document.getElementById(id).value.trim();
-          if (!value) {
-            errorEl.textContent = "Please complete all fields before continuing.";
-            return false;
-          }
-        }
-      }
+if (stepNum === 1) {
+  const email = document.getElementById("email").value.trim();
+  if (!email) {
+    errorEl.textContent = "Please enter your business email before continuing.";
+    return false;
+  }
+}
 
       if (stepNum === 2) {
         const required = ["monthlyLeads", "closeRate", "avgDealValue", "missedLeadPercent"];
@@ -767,19 +763,18 @@
       e.preventDefault();
       if (!validateStep(3)) return;
 
-      const data = {
-        name: document.getElementById("name").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        businessName: document.getElementById("businessName").value.trim(),
-        businessType: document.getElementById("businessType").value,
-        monthlyLeads: Number(document.getElementById("monthlyLeads").value),
-        closeRate: Number(document.getElementById("closeRate").value),
-        avgDealValue: Number(document.getElementById("avgDealValue").value),
-        missedLeadPercent: Number(document.getElementById("missedLeadPercent").value),
-        biggestPain: document.getElementById("biggestPain").value,
-        notes: document.getElementById("notes").value.trim()
-      };
-
+const data = {
+  name: document.getElementById("name").value.trim(),
+  email: document.getElementById("email").value.trim(),
+  businessName: document.getElementById("businessName").value.trim() || "Your Business",
+  businessType: document.getElementById("businessType").value || "other",
+  monthlyLeads: Number(document.getElementById("monthlyLeads").value),
+  closeRate: Number(document.getElementById("closeRate").value),
+  avgDealValue: Number(document.getElementById("avgDealValue").value),
+  missedLeadPercent: Number(document.getElementById("missedLeadPercent").value),
+  biggestPain: document.getElementById("biggestPain").value,
+  notes: document.getElementById("notes").value.trim()
+};
       const benchmark = industryBenchmarks[data.businessType] || industryBenchmarks.other;
 
       const currentMonthlyRevenue =
@@ -802,8 +797,8 @@
         <div class="mini-title">Audit Results</div>
         <h3 style="margin:0 0 8px;">${data.businessName}: Estimated AI Revenue Opportunity</h3>
         <p class="small" style="margin:0 0 16px;">
-          Based on the numbers you entered, this business may be losing revenue through
-          ${data.biggestPain.replace("-", " ")} and delayed lead handling.
+          Based on the numbers you entered, your business may be missing revenue from slow response,
+          missed opportunities, and inconsistent follow-up.
         </p>
 
         <div class="result-grid">
