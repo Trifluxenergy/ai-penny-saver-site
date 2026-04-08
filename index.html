@@ -1,101 +1,873 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AI Penny Saver</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Penny Saver | Free AI Business Audit</title>
   <style>
+    :root {
+      --bg: #07111f;
+      --panel: #0e1b2f;
+      --panel-2: #13243d;
+      --text: #f4f7fb;
+      --muted: #aab7cc;
+      --accent: #39ff14;
+      --accent-dark: #1fd800;
+      --border: rgba(255,255,255,.08);
+      --danger: #ff6b6b;
+    }
+
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #09111d 0%, #081525 100%);
+      color: var(--text);
     }
 
     .container {
-      padding: 60px 20px;
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 48px 0 72px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 36px;
+      align-items: center;
     }
 
     .logo {
-      max-width: 220px;
-      margin-bottom: 20px;
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      border-radius: 18px;
+      background: #fff;
+      padding: 12px;
+      margin-bottom: 24px;
     }
 
     h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
+      font-size: clamp(2.2rem, 5vw, 4.4rem);
+      line-height: 1.05;
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
     }
 
-    p {
-      font-size: 18px;
-      max-width: 600px;
-      margin: auto;
-      margin-bottom: 30px;
-      color: #cbd5f5;
+    .sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 26px;
+      line-height: 1.6;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
     }
 
     .btn {
-      background: #22c55e;
-      color: black;
-      padding: 15px 25px;
-      border-radius: 8px;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s ease;
       text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .section {
-      margin-top: 80px;
+    .btn-primary {
+      background: var(--accent);
+      color: #081109;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,.05);
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .badge {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .92rem;
     }
 
     .card {
-      background: #1e293b;
+      background: linear-gradient(180deg, rgba(19,36,61,.95), rgba(10,23,40,.95));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    }
+
+    .mini-title {
+      font-size: .9rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .preview-metric {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .metric-box {
+      padding: 16px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .metric-box h3 {
+      margin: 0 0 6px;
+      font-size: .95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .metric-box p {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 30px 0 70px;
+    }
+
+    .section h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin: 0 0 10px;
+    }
+
+    .section p.section-sub {
+      color: var(--muted);
+      margin: 0 0 24px;
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
       padding: 20px;
-      border-radius: 10px;
-      margin: 15px auto;
-      max-width: 500px;
+    }
+
+    .feature h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      width: min(760px, 100%);
+      background: #0d1728;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .modal h3 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .close-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: .95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #0a1322;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .progress {
+      height: 10px;
+      background: rgba(255,255,255,.07);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0 22px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 20%;
+      background: var(--accent);
+      transition: width .25s ease;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .step-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.5;
+    }
+
+    .error {
+      color: var(--danger);
+      font-size: .92rem;
+      margin-top: 10px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .result-card {
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .result-card h4 {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: .95rem;
+      font-weight: 600;
+    }
+
+    .result-card p {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .recommendations {
+      background: rgba(57,255,20,.06);
+      border: 1px solid rgba(57,255,20,.2);
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 12px;
+    }
+
+    .recommendations ul {
+      margin: 10px 0 0 18px;
+      padding: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .features,
+      .result-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-
 <body>
+  <main class="hero">
+    <div class="container hero-grid">
+      <section>
+        <img src="logo.png" alt="AI Penny Saver" class="logo" />
+        <div class="mini-title">AI Receptionist + Growth System</div>
+        <h1>Stop Losing Leads. See What AI Could Add to Your Revenue in 60 Seconds.</h1>
+        <p class="sub">
+          Get a free AI Business Audit built for med spas, contractors, real estate teams,
+          churches, and service businesses. We’ll estimate missed revenue, identify your
+          biggest leak, and show where automation can recover it.
+        </p>
 
-  <div class="container">
+        <div class="cta-row">
+          <button class="btn btn-primary" id="openAuditBtn">Get Free AI Business Audit</button>
+          <a class="btn btn-primary" href="https://cal.com/trifluxenergy/30min" target="_blank" rel="noreferrer">Book a Demo</a>
+        </div>
 
-    <!-- LOGO -->
-    <img src="logo.png" class="logo" alt="AI Penny Saver Logo">
+        <div class="badges">
+          <span class="badge">Captures Every Lead</span>
+          <span class="badge">Industry-Specific Insights</span>
+          <span class="badge">Instant Revenue Estimate</span>
+          <span class="badge">Works 24/7</span>
+        </div>
+      </section>
 
-    <h1>Never Miss Another Call Again</h1>
-    <p>
-      AI Penny Saver installs an AI receptionist that answers your calls,
-      books appointments, and captures every lead — 24/7.
-    </p>
+      <aside class="card">
+        <div class="mini-title">What prospects will get</div>
+        <h2 style="font-size:1.8rem; margin:0 0 10px;">Fast audit. Real numbers. Clear next step.</h2>
+        <p class="small">
+          This first version qualifies visitors, captures leads, calculates rough upside,
+          and points serious buyers to your booking flow.
+        </p>
 
-    <a href="https://cal.com/trifluxenergy/30min" class="btn" target="_blank">
-  Book a Free Demo
-</a>
+        <div class="preview-metric">
+          <div class="metric-box">
+            <h3>Missed Lead Recovery</h3>
+            <p>15–35%</p>
+          </div>
+          <div class="metric-box">
+            <h3>Reply Speed Lift</h3>
+            <p>24/7</p>
+          </div>
+          <div class="metric-box">
+            <h3>Audit Completion</h3>
+            <p>&lt; 1 min</p>
+          </div>
+          <div class="metric-box">
+            <h3>Next Step</h3>
+            <p>Book Demo</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <section class="section" id="tools">
+    <div class="container">
+      <h2>What the platform does</h2>
+      <p class="section-sub">
+        This turns your website into a system that captures leads, qualifies them, and
+        shows exactly how much revenue you could be missing — all in under a minute.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <h3>Free AI Business Audit</h3>
+          <p>Qualifies the visitor and reveals the revenue they may be leaving on the table.</p>
+        </div>
+        <div class="feature">
+          <h3>Industry-Specific Mode</h3>
+          <p>Adapts recommendations for med spas, contractors, real estate, churches, and more.</p>
+        </div>
+        <div class="feature">
+          <h3>Conversion-Driven CTA</h3>
+          <p>Guides qualified visitors toward the next best step, whether that’s booking a demo or getting help fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-backdrop" id="auditModal">
+    <div class="modal">
+      <div class="modal-top">
+        <h3>Free AI Business Audit</h3>
+        <button class="close-btn" id="closeAuditBtn">&times;</button>
+      </div>
+
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <form id="auditForm">
+        <div class="step active" data-step="1">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input id="name" name="name" type="text" required />
+            </div>
+            <div class="field">
+              <label for="email">Business Email</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+            <div class="field">
+              <label for="businessName">Business Name</label>
+              <input id="businessName" name="businessName" type="text" required />
+            </div>
+            <div class="field">
+              <label for="businessType">Industry</label>
+              <select id="businessType" name="businessType" required>
+                <option value="">Choose one</option>
+                <option value="med-spa">Med Spa</option>
+                <option value="contractor">Contractor</option>
+                <option value="real-estate">Real Estate</option>
+                <option value="church">Church</option>
+                <option value="agency">Agency</option>
+                <option value="other">Other Service Business</option>
+              </select>
+            </div>
+          </div>
+          <div class="step-actions">
+            <span class="small">We capture this first so qualified leads are never lost.</span>
+            <button type="button" class="btn btn-primary" data-next>Continue</button>
+          </div>
+          <div class="error" id="errorStep1"></div>
+        </div>
+
+        <div class="step" data-step="2">
+          <div class="form-grid">
+            <div class="field">
+              <label for="monthlyLeads">Monthly Leads</label>
+              <input id="monthlyLeads" name="monthlyLeads" type="number" min="0" placeholder="e.g. 120" required />
+            </div>
+            <div class="field">
+              <label for="closeRate">Close Rate (%)</label>
+              <input id="closeRate" name="closeRate" type="number" min="0" max="100" placeholder="e.g. 12" required />
+            </div>
+            <div class="field">
+              <label for="avgDealValue">Average Deal Value ($)</label>
+              <input id="avgDealValue" name="avgDealValue" type="number" min="0" placeholder="e.g. 2500" required />
+            </div>
+            <div class="field">
+              <label for="missedLeadPercent">Estimated Missed / Slow-Follow-Up Leads (%)</label>
+              <input id="missedLeadPercent" name="missedLeadPercent" type="number" min="0" max="100" placeholder="e.g. 20" required />
+            </div>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="btn btn-secondary" data-prev>Back</button>
+            <button type="button" class="btn btn-primary" data-next>Continue</button>
+          </div>
+          <div class="error" id="errorStep2"></div>
+        </div>
+
+        <div class="step" data-step="3">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="biggestPain">Biggest Revenue Leak</label>
+              <select id="biggestPain" name="biggestPain" required>
+                <option value="">Choose one</option>
+                <option value="missed-calls">Missed calls</option>
+                <option value="slow-follow-up">Slow follow-up</option>
+                <option value="no-show">No-shows / appointment drop-off</option>
+                <option value="lead-organization">Poor lead organization</option>
+                <option value="outbound">Weak outbound follow-up</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="notes">Anything else you want the audit to consider?</label>
+              <textarea id="notes" name="notes" placeholder="Optional details..."></textarea>
+            </div>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="btn btn-secondary" data-prev>Back</button>
+            <button type="submit" class="btn btn-primary">Show My Audit</button>
+          </div>
+          <div class="error" id="errorStep3"></div>
+        </div>
+
+        <div class="step" data-step="4">
+          <div id="resultContent"></div>
+          <div class="footer-cta">
+            <a class="btn btn-primary" href="https://cal.com/trifluxenergy/30min" target="_blank" rel="noreferrer">Book a Demo</a>
+            <button type="button" class="btn btn-secondary" id="restartAuditBtn">Run Audit Again</button>
+          </div>
+          <p class="small" style="margin-top:14px;">
+            Want help putting this into action? Book a demo and we’ll show you how this could work for your business.
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
 
-  <div class="section">
-    <h2>What We Do</h2>
+  <script>
+    const modal = document.getElementById("auditModal");
+    const openAuditBtn = document.getElementById("openAuditBtn");
+    const closeAuditBtn = document.getElementById("closeAuditBtn");
+    const restartAuditBtn = document.getElementById("restartAuditBtn");
+    const form = document.getElementById("auditForm");
+    const progressBar = document.getElementById("progressBar");
+    const steps = Array.from(document.querySelectorAll(".step"));
+    let currentStep = 1;
 
-    <div class="card">
-      <h3>AI Call Answering</h3>
-      <p>Every call is answered instantly — no more missed opportunities.</p>
-    </div>
+    const industryBenchmarks = {
+      "med-spa": {
+        gainMultiplier: 0.28,
+        recs: [
+          "Add AI call answering for after-hours and missed-call recovery.",
+          "Trigger instant SMS follow-up for treatment inquiries.",
+          "Use appointment reminders to reduce drop-off and no-shows."
+        ]
+      },
+      "contractor": {
+        gainMultiplier: 0.24,
+        recs: [
+          "Capture inbound quote requests instantly.",
+          "Automate estimate follow-up for uncontacted leads.",
+          "Route hot jobs to a human within minutes, not hours."
+        ]
+      },
+      "real-estate": {
+        gainMultiplier: 0.30,
+        recs: [
+          "Speed-to-lead automation matters most.",
+          "Use AI texting for inbound listing and buyer leads.",
+          "Auto-tag hot, warm, and cold inquiries into CRM."
+        ]
+      },
+      "church": {
+        gainMultiplier: 0.18,
+        recs: [
+          "Use AI receptionist flow for visitors, counseling, and event calls.",
+          "Automate follow-up for prayer requests and first-time guests.",
+          "Capture inquiries even when office staff is unavailable."
+        ]
+      },
+      "agency": {
+        gainMultiplier: 0.25,
+        recs: [
+          "Automate lead intake and qualification before sales calls.",
+          "Use instant email/SMS follow-up to improve close rates.",
+          "Create a lead score to prioritize high-value prospects."
+        ]
+      },
+      "other": {
+        gainMultiplier: 0.22,
+        recs: [
+          "Capture every inquiry with a 24/7 intake layer.",
+          "Automate first response and appointment booking.",
+          "Centralize lead data for follow-up visibility."
+        ]
+      }
+    };
 
-    <div class="card">
-      <h3>Appointment Booking</h3>
-      <p>Automatically schedules calls directly into your calendar.</p>
-    </div>
+    function setStep(stepNum) {
+      currentStep = stepNum;
+      steps.forEach(step => {
+        step.classList.toggle("active", Number(step.dataset.step) === stepNum);
+      });
+      progressBar.style.width = `${(stepNum / 4) * 100}%`;
+    }
 
-    <div class="card">
-      <h3>Lead Follow-Up</h3>
-      <p>Text and email follow-ups to convert more customers.</p>
-    </div>
-  </div>
+    function openModal() {
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+      setStep(1);
+    }
 
+    function closeModal() {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    openAuditBtn.addEventListener("click", openModal);
+    closeAuditBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    function validateStep(stepNum) {
+      const errorEl = document.getElementById(`errorStep${stepNum}`);
+      if (errorEl) errorEl.textContent = "";
+
+      if (stepNum === 1) {
+        const required = ["name", "email", "businessName", "businessType"];
+        for (const id of required) {
+          const value = document.getElementById(id).value.trim();
+          if (!value) {
+            errorEl.textContent = "Please complete all fields before continuing.";
+            return false;
+          }
+        }
+      }
+
+      if (stepNum === 2) {
+        const required = ["monthlyLeads", "closeRate", "avgDealValue", "missedLeadPercent"];
+        for (const id of required) {
+          const value = document.getElementById(id).value.trim();
+          if (value === "") {
+            errorEl.textContent = "Please enter all numeric values before continuing.";
+            return false;
+          }
+        }
+      }
+
+      if (stepNum === 3) {
+        const biggestPain = document.getElementById("biggestPain").value.trim();
+        if (!biggestPain) {
+          errorEl.textContent = "Please choose the biggest revenue leak.";
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    document.querySelectorAll("[data-next]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (!validateStep(currentStep)) return;
+        setStep(currentStep + 1);
+      });
+    });
+
+    document.querySelectorAll("[data-prev]").forEach(btn => {
+      btn.addEventListener("click", () => setStep(currentStep - 1));
+    });
+
+    function money(n) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0
+      }).format(n);
+    }
+
+    function generateRecommendations(data, monthlyRecoveredRevenue) {
+      const benchmark = industryBenchmarks[data.businessType] || industryBenchmarks.other;
+      const closeRateLift = Math.max(2, Math.round(Number(data.closeRate) * benchmark.gainMultiplier));
+      const recoveredLeads = Math.round(Number(data.monthlyLeads) * (Number(data.missedLeadPercent) / 100));
+
+      return {
+        recoveredLeads,
+        closeRateLift,
+        recs: benchmark.recs,
+        monthlyRecoveredRevenue
+      };
+    }
+
+    async function sendLeadToWebhook(payload) {
+      const webhookUrl = "REPLACE_WITH_YOUR_N8N_WEBHOOK_URL";
+
+      if (webhookUrl.includes("REPLACE_WITH")) {
+        console.log("Webhook placeholder active. Lead not sent yet.", payload);
+        return { ok: true, skipped: true };
+      }
+
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error("Webhook request failed.");
+      }
+
+      return response.json().catch(() => ({ ok: true }));
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!validateStep(3)) return;
+
+      const data = {
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        businessName: document.getElementById("businessName").value.trim(),
+        businessType: document.getElementById("businessType").value,
+        monthlyLeads: Number(document.getElementById("monthlyLeads").value),
+        closeRate: Number(document.getElementById("closeRate").value),
+        avgDealValue: Number(document.getElementById("avgDealValue").value),
+        missedLeadPercent: Number(document.getElementById("missedLeadPercent").value),
+        biggestPain: document.getElementById("biggestPain").value,
+        notes: document.getElementById("notes").value.trim()
+      };
+
+      const benchmark = industryBenchmarks[data.businessType] || industryBenchmarks.other;
+
+      const currentMonthlyRevenue =
+        data.monthlyLeads * (data.closeRate / 100) * data.avgDealValue;
+
+      const recoverableLeads = data.monthlyLeads * (data.missedLeadPercent / 100);
+      const recoveredRevenue =
+        recoverableLeads * ((data.closeRate + (data.closeRate * benchmark.gainMultiplier)) / 100) * data.avgDealValue;
+
+      const estimatedMonthlyUpside = Math.round(recoveredRevenue);
+      const annualUpside = estimatedMonthlyUpside * 12;
+      const qualification =
+        estimatedMonthlyUpside >= 10000 ? "Hot" :
+        estimatedMonthlyUpside >= 3000 ? "Warm" : "Cold";
+
+      const recBundle = generateRecommendations(data, estimatedMonthlyUpside);
+
+      const resultContent = document.getElementById("resultContent");
+      resultContent.innerHTML = `
+        <div class="mini-title">Audit Results</div>
+        <h3 style="margin:0 0 8px;">${data.businessName}: Estimated AI Revenue Opportunity</h3>
+        <p class="small" style="margin:0 0 16px;">
+          Based on the numbers you entered, this business may be losing revenue through
+          ${data.biggestPain.replace("-", " ")} and delayed lead handling.
+        </p>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <h4>Current Monthly Revenue</h4>
+            <p>${money(currentMonthlyRevenue)}</p>
+          </div>
+          <div class="result-card">
+            <h4>Estimated Monthly Upside</h4>
+            <p>${money(estimatedMonthlyUpside)}</p>
+          </div>
+          <div class="result-card">
+            <h4>Estimated Annual Upside</h4>
+            <p>${money(annualUpside)}</p>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <h4>Recoverable Leads / Month</h4>
+            <p>${recBundle.recoveredLeads}</p>
+          </div>
+          <div class="result-card">
+            <h4>Potential Close Rate Lift</h4>
+            <p>+${recBundle.closeRateLift}%</p>
+          </div>
+          <div class="result-card">
+            <h4>Lead Score</h4>
+            <p>${qualification}</p>
+          </div>
+        </div>
+
+        <div class="recommendations">
+          <strong>Recommended next moves</strong>
+          <ul>
+            ${recBundle.recs.map(item => `<li>${item}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+
+      const payload = {
+        ...data,
+        currentMonthlyRevenue,
+        estimatedMonthlyUpside,
+        annualUpside,
+        qualification,
+        recoveredLeads: recBundle.recoveredLeads,
+        closeRateLift: recBundle.closeRateLift,
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        await sendLeadToWebhook(payload);
+      } catch (err) {
+        console.error(err);
+      }
+
+      setStep(4);
+    });
+
+    restartAuditBtn.addEventListener("click", () => {
+      form.reset();
+      setStep(1);
+    });
+  </script>
 </body>
 </html>
