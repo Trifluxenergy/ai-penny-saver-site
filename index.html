@@ -739,7 +739,7 @@ if (stepNum === 1) {
     }
 
     async function sendLeadToWebhook(payload) {
-      const webhookUrl = "REPLACE_WITH_YOUR_N8N_WEBHOOK_URL";
+      const webhookUrl = "http://localhost:5678/webhook-test/ai-audit";
 
       if (webhookUrl.includes("REPLACE_WITH")) {
         console.log("Webhook placeholder active. Lead not sent yet.", payload);
