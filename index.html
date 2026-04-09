@@ -739,7 +739,7 @@ if (stepNum === 1) {
     }
 
     async function sendLeadToWebhook(payload) {
-      const webhookUrl = "http://localhost:5678/webhook-test/ai-audit";
+      const webhookUrl = "https://primary-production-dbff7.up.railway.app/webhook/ai-audit";
 
       if (webhookUrl.includes("REPLACE_WITH")) {
         console.log("Webhook placeholder active. Lead not sent yet.", payload);
